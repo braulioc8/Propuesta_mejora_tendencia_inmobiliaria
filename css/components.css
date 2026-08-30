@@ -3,6 +3,31 @@
    Executive Navy, Soft Emerald WhatsApp, 100% Strict Mobile Containment & Lightbox Modal
    ========================================== */
 
+/* Top Executive Concept Disclaimer Banner */
+.disclaimer-top-bar {
+    background: #0F172A;
+    color: var(--color-accent-gold, #C5A059);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+    z-index: 1001;
+    position: relative;
+}
+
+.disclaimer-top-bar svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--color-accent-gold, #C5A059);
+}
+
 /* Global SVG Safety & Scaling Rules */
 svg {
     display: inline-block;

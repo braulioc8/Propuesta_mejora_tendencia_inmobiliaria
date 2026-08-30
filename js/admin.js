@@ -83,15 +83,13 @@ async function initAdminPage() {
     loadPublishedPropertiesTable();
     setupFormSubmit();
 
-    // 2. Auth Check & Token Auto-Renewal
-    const validToken = await getValidAuthToken();
-    if (!validToken) {
-        localStorage.removeItem("TENDENCIA_AUTH_TOKEN");
-        localStorage.removeItem("TENDENCIA_REFRESH_TOKEN");
-        localStorage.removeItem("TENDENCIA_AUTH_USER");
+    // 2. Auth Check: Protect Admin Demo Access
+    const storedToken = localStorage.getItem("TENDENCIA_AUTH_TOKEN");
+    if (!storedToken) {
         window.location.href = "login.html";
         return;
     }
+    currentUser = JSON.parse(localStorage.getItem("TENDENCIA_AUTH_USER")) || { name: "Asesor Admin Demo", email: "admin@demoinmobiliaria.com", role: "ADMIN" };
 
     renderAdminHeaderProfile();
     initLeafletMapPicker();

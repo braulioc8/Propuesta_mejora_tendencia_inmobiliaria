@@ -27,6 +27,12 @@
 </head>
 <body>
 
+    <!-- CONCEPTO NO OFICIAL DISCLAIMER BANNER -->
+    <div class="disclaimer-top-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>CONCEPTO NO OFICIAL — REDISEÑO INDEPENDIENTE DE DEMOSTRACIÓN</span>
+    </div>
+
     <!-- ALPINE.JS REACTIVE ANIMATED NAVBAR -->
     <header class="navbar" x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 25)" :class="{ 'scrolled': scrolled }">
         <div class="container navbar-container">
@@ -35,8 +41,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </div>
                 <div class="brand-text">
-                    <span class="brand-title">DEMO</span>
-                    <span class="brand-subtitle">INMOBILIARIA</span>
+                    <span class="brand-name">DEMO INMOBILIARIA</span>
+                    <span class="brand-tagline">Portafolio & Asesoría Quito</span>
                 </div>
             </a>
 
@@ -45,9 +51,9 @@
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Inicio</a></li>
                     <li><a href="propiedades.html" class="nav-link active">Catálogo Completo</a></li>
-                    <li><a href="index.html#galeria" class="nav-link">Galería HD</a></li>
+                    <li><a href="index.html#nosotros" class="nav-link">Nosotros</a></li>
                     <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
-                    <li><a href="subir-propiedad.html" class="nav-link" style="color: var(--color-accent-gold); font-weight: 700;">+ Panel Admin</a></li>
+                    <li><a href="subir-propiedad.html" class="nav-link" style="color: var(--color-accent-gold); font-weight: 700;">Ver Demo Administrativa</a></li>
                 </ul>
             </nav>
 
@@ -64,13 +70,28 @@
             </div>
         </div>
 
-        <div class="mobile-drawer" x-show="open" x-cloak @click.outside="open = false">
+        <div class="mobile-drawer" 
+             x-show="open" 
+             x-cloak 
+             x-transition:enter="transition duration-300 ease-out"
+             x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition duration-200 ease-in"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
+             @click.outside="open = false">
             <ul class="mobile-menu-list">
                 <li><a href="index.html" class="nav-link" @click="open = false">Inicio</a></li>
-                <li><a href="propiedades.html" class="nav-link" @click="open = false">Catálogo Completo</a></li>
-                <li><a href="index.html#galeria" class="nav-link" @click="open = false">Galería HD</a></li>
+                <li><a href="propiedades.html" class="nav-link active" @click="open = false">Catálogo Completo</a></li>
+                <li><a href="index.html#nosotros" class="nav-link" @click="open = false">Nosotros</a></li>
                 <li><a href="index.html#contacto" class="nav-link" @click="open = false">Contacto</a></li>
-                <li><a href="subir-propiedad.html" class="nav-link" style="color: var(--color-accent-gold); font-weight: 700;" @click="open = false">+ Panel Admin</a></li>
+                <li><a href="subir-propiedad.html" class="nav-link" style="color: var(--color-accent-gold); font-weight: 700;" @click="open = false">Ver Demo Administrativa</a></li>
+                <li style="width: 100%; margin-top: 0.5rem;">
+                    <a href="https://wa.me/593984585530?text=Hola,%20deseo%20asesoría%20inmobiliaria" target="_blank" class="btn btn-whatsapp btn-lg btn-full" @click="open = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>Asesoría VIP por WhatsApp</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </header>
@@ -195,7 +216,7 @@
                 <div class="catalog-main-content">
                     <!-- Results Counter & Active Polygon Badge Header -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem; background: var(--color-surface-white); padding: 0.85rem 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border-light);">
-                        <span id="results-count-text" style="font-weight: 700; color: var(--color-primary); font-size: 1.02rem;">Cargando propiedades...</span>
+                        <span id="results-count-text" style="font-weight: 700; color: var(--color-primary); font-size: 1.02rem;">Mostrando portafolio de propiedades</span>
                         
                         <span id="drawn-zone-badge" class="badge badge-gold" style="display: none; align-items: center; gap: 0.4rem; padding: 0.4rem 0.75rem;">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
