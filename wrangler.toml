@@ -2,5 +2,8 @@ name = "demo-inmobiliaria"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-08-29"
 
+[assets]
+directory = "./dist"
+
 [vars]
 NODE_VERSION = "18.x"
