@@ -534,8 +534,8 @@ function initContactForm() {
         const phone = document.getElementById("contact-phone").value;
         const interest = document.getElementById("contact-interest").value;
 
-        const message = `Hola Tendencia Inmobiliaria, mi nombre es ${name}. Estoy interesado en ${interest}. Mi teléfono de contacto es ${phone}.`;
-        window.open(`https://wa.me/593984585530?text=${encodeURIComponent(message)}`, '_blank');
+        const message = `Hola braulio estoy probando la demo de tu web de inmobiliaria!! (Cliente: ${name}, Tel: ${phone}, Interés: ${interest})`;
+        window.open(`https://wa.me/593997721460?text=${encodeURIComponent(message)}`, '_blank');
     });
 }
 

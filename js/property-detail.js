@@ -82,8 +82,8 @@ function initMortgageCalculator(property) {
 
         const waBtn = document.getElementById("btn-calc-whatsapp");
         if (waBtn) {
-            const text = `Hola, deseo consultar pre-calificación crediticia para ${property.title}. Precio: $${price.toLocaleString("es-EC")}, Entrada: $${Math.round(downVal).toLocaleString("es-EC")} (${downPct}%), Cuota Estimada: $${Math.round(monthlyPayment)}/mes a ${years} años.`;
-            waBtn.href = `https://wa.me/593984585530?text=${encodeURIComponent(text)}`;
+            const text = `Hola braulio estoy probando la demo de tu web de inmobiliaria!! (Pre-Calificación para ${property.title}, Entrada: $${Math.round(downVal).toLocaleString("es-EC")}, Cuota: $${Math.round(monthlyPayment)}/mes)`;
+            waBtn.href = `https://wa.me/593997721460?text=${encodeURIComponent(text)}`;
         }
     }
 
@@ -525,7 +525,7 @@ function renderPropertyDetailPage(property) {
                         <button type="submit" class="btn btn-primary btn-md btn-full" style="margin-bottom: 0.5rem;">
                             <span>Solicitar Información VIP</span>
                         </button>
-                        <a href="https://wa.me/593984585530?text=Hola,%20deseo%20consultar%20sobre%20${encodeURIComponent(property.title)}" target="_blank" class="btn btn-emerald btn-whatsapp btn-md btn-full" style="margin-bottom: 0.5rem;">
+                        <a href="https://wa.me/593997721460?text=Hola%20braulio%20estoy%20probando%20la%20demo%20de%20tu%20web%20de%20inmobiliaria!!" target="_blank" class="btn btn-emerald btn-whatsapp btn-md btn-full" style="margin-bottom: 0.5rem;">
                             ${BENTO_ICONS.phone}
                             <span>Contactar por WhatsApp</span>
                         </a>
