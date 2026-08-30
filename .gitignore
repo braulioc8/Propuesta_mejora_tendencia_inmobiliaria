@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build & Dist Outputs
+dist/
+build/
+.output/
+
+# Environment & Logs
+.env
+.env.local
+*.log
+npm-debug.log*
+
+# System Files
+.DS_Store
+Thumbs.db

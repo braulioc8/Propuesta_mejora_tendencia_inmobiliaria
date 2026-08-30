@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar Propiedad | Demo Inmobiliaria</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet OpenStreetMap Interactive Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Alpine.js Declarative Engine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Normalized Design System & Stylesheets -->
+    <link rel="stylesheet" href="/css/design-tokens.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+    <!-- ALPINE.JS REACTIVE ANIMATED NAVBAR -->
+    <header class="navbar" x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 25)" :class="{ 'scrolled': scrolled }">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="brand-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">DEMO</span>
+                    <span class="brand-subtitle">INMOBILIARIA</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="index.html#catalogo" class="nav-link">Propiedades</a></li>
+                    <li><a href="index.html#galeria" class="nav-link">Galería HD</a></li>
+                    <li><a href="subir-propiedad.html" class="nav-link active" style="color: var(--color-accent-gold); font-weight: 700;">+ Panel de Administración</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="https://wa.me/593984585530?text=Deseo%20publicar%20mi%20propiedad" target="_blank" class="btn btn-emerald btn-whatsapp btn-md nav-desktop-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>Asesoría VIP</span>
+                </a>
+
+                <button class="mobile-toggle" @click="open = !open" aria-label="Abrir Menú">
+                    <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-drawer"
+             x-show="open"
+             x-cloak
+             x-transition:enter="transition duration-300 ease-out"
+             x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition duration-200 ease-in"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
+             @click.outside="open = false">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html#inicio" class="nav-link" @click="open = false">Inicio</a></li>
+                <li><a href="index.html#catalogo" class="nav-link" @click="open = false">Propiedades</a></li>
+                <li><a href="subir-propiedad.html" class="nav-link" style="color: var(--color-accent-gold); font-weight: 700;" @click="open = false">+ Panel de Administración</a></li>
+                <li style="width: 100%; margin-top: 0.5rem;">
+                    <a href="https://wa.me/593984585530?text=Deseo%20publicar%20mi%20propiedad" target="_blank" class="btn btn-whatsapp btn-lg btn-full" @click="open = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>Asesoría VIP por WhatsApp</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- MAIN WRAPPER -->
+    <main class="property-detail-wrapper">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-nav">
+                <a href="index.html">Inicio</a>
+                <span>/</span>
+                <span style="color: var(--color-primary); font-weight: 600;">Panel de Control & Administración</span>
+            </div>
+
+            <!-- Page Title Header -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span class="badge badge-gold" style="margin-bottom: 0.5rem;">Panel de Anunciantes VIP</span>
+                    <h1 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-primary); margin-bottom: 0.2rem;">Panel de Control & Gestión de Propiedades</h1>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">Monitorea métricas en tiempo real desde la base de datos, edita propiedades existentes o pública nuevos inmuebles.</p>
+                </div>
+                <div>
+                    <button type="button" id="btn-toggle-new-prop-form" class="btn btn-primary btn-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <span>+ Publicar Nueva Propiedad</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 1. DYNAMIC EXECUTIVE KPI DASHBOARD CARDS -->
+            <div id="admin-kpi-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.75rem;">
+                <div class="bento-hero-metric-card" style="padding: 1.15rem; background: var(--color-surface-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-subtle); border: 1px solid var(--color-border-light);">
+                    <div class="bento-hero-metric-icon" style="background: rgba(15, 23, 42, 0.08); color: var(--color-primary); width: 48px; height: 48px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <div id="kpi-total-props" style="font-size: 1.6rem; font-weight: 800; color: var(--color-primary); line-height: 1;">-</div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; margin-top: 0.3rem;">Propiedades Activas</div>
+                    </div>
+                </div>
+
+                <div class="bento-hero-metric-card" style="padding: 1.15rem; background: var(--color-surface-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-subtle); border: 1px solid var(--color-border-light);">
+                    <div class="bento-hero-metric-icon" style="background: rgba(197, 160, 89, 0.15); color: var(--color-accent-gold); width: 48px; height: 48px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                    <div>
+                        <div id="kpi-total-views" style="font-size: 1.6rem; font-weight: 800; color: var(--color-accent-gold); line-height: 1;">-</div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; margin-top: 0.3rem;">Visualizaciones Totales</div>
+                    </div>
+                </div>
+
+                <div class="bento-hero-metric-card" style="padding: 1.15rem; background: var(--color-surface-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-subtle); border: 1px solid var(--color-border-light);">
+                    <div class="bento-hero-metric-icon" style="background: rgba(5, 150, 105, 0.15); color: var(--color-emerald); width: 48px; height: 48px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <div id="kpi-total-leads" style="font-size: 1.6rem; font-weight: 800; color: var(--color-emerald); line-height: 1;">-</div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; margin-top: 0.3rem;">Leads WhatsApp Estimados</div>
+                    </div>
+                </div>
+
+                <div class="bento-hero-metric-card" style="padding: 1.15rem; background: var(--color-surface-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-subtle); border: 1px solid var(--color-border-light);">
+                    <div class="bento-hero-metric-icon" style="background: rgba(15, 23, 42, 0.08); color: var(--color-primary); width: 48px; height: 48px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div>
+                        <div id="kpi-total-portfolio" style="font-size: 1.4rem; font-weight: 800; color: var(--color-primary); line-height: 1;">-</div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; margin-top: 0.3rem;">Valor del Portafolio</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. DYNAMIC PROPERTIES MANAGEMENT & EDIT TABLE WITH SEARCH & FILTERS TOOLBAR -->
+            <div id="admin-properties-table-wrap" style="margin-bottom: 2rem;">
+                <div class="bento-compact-tile">
+                    <div class="bento-tile-title-compact">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                        Gestión y Edición de Propiedades Publicadas (Vistas & Control RLS)
+                    </div>
+
+                    <!-- SEARCH & FILTERS TOOLBAR -->
+                    <div style="display: flex; gap: 0.75rem; margin-bottom: 1.15rem; flex-wrap: wrap; align-items: center; background: var(--color-bg-subtle); padding: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--color-border-light);">
+                        <div style="flex: 2; min-width: 220px; position: relative;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--color-text-muted);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            <input type="text" id="admin-search-input" class="form-input" placeholder="Buscar por título, ciudad o dirección..." style="padding-left: 2.3rem; font-size: 0.88rem;">
+                        </div>
+                        
+                        <div style="flex: 1; min-width: 140px;">
+                            <select id="admin-filter-type" class="form-select" style="font-size: 0.85rem; padding: 0.5rem 0.75rem;">
+                                <option value="all">Todos los Tipos</option>
+                                <option value="casa">Casas</option>
+                                <option value="departamento">Departamentos</option>
+                                <option value="proyecto">Proyectos</option>
+                                <option value="lote">Terrenos / Lotes</option>
+                            </select>
+                        </div>
+
+                        <div style="flex: 1; min-width: 140px;">
+                            <select id="admin-filter-status" class="form-select" style="font-size: 0.85rem; padding: 0.5rem 0.75rem;">
+                                <option value="all">Todos los Estados</option>
+                                <option value="Venta Inmediata">Venta Inmediata</option>
+                                <option value="En Construcción">En Construcción</option>
+                                <option value="Entrega Inmediata">Entrega Inmediata</option>
+                                <option value="Preventa 2026">Preventa 2026</option>
+                            </select>
+                        </div>
+
+                        <div style="flex: 1; min-width: 140px;">
+                            <select id="admin-sort-by" class="form-select" style="font-size: 0.85rem; padding: 0.5rem 0.75rem;">
+                                <option value="default">Orden por Defecto</option>
+                                <option value="views-desc">Más Vistas (👁️)</option>
+                                <option value="price-asc">Precio: Menor a Mayor</option>
+                                <option value="price-desc">Precio: Mayor a Menor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive-wrapper">
+                        <table class="typologies-table">
+                            <thead>
+                                <tr>
+                                    <th>Propiedad / Título</th>
+                                    <th>Tipo</th>
+                                    <th>Precio</th>
+                                    <th>Visualizaciones</th>
+                                    <th>Insignias</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body-properties">
+                                <!-- Populated dynamically from database by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. COLLAPSIBLE FORM SECTION (HIDDEN BY DEFAULT UNTIL EDIT OR + PUBLICAR CLICKED) -->
+            <div id="form-container-wrapper" style="display: none; margin-bottom: 3rem;">
+                <div id="form-section-anchor" style="margin-bottom: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed var(--color-border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h2 id="form-editor-title" style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-primary); margin-bottom: 0.2rem;">Formulario de Publicación / Edición</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.9rem;">Completa o modifica la información técnica. La tarjeta de vista previa se actualizará en tiempo real a la derecha.</p>
+                    </div>
+                    <div>
+                        <button type="button" id="btn-close-form" class="btn btn-outline btn-sm" style="color: var(--color-text-muted);">
+                            ✕ Cancelar y Ocultar Editor
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MAIN FORM GRID: FORM (68%) / LIVE CARD PREVIEW (32%) -->
+                <div class="plusvalia-main-grid">
+                    
+                    <!-- LEFT COLUMN: FORM ENGINE -->
+                    <div>
+                        <form id="upload-property-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+                            <!-- BLOQUE 1: DATOS PRINCIPALES E INSIGNIAS -->
+                            <div class="bento-compact-tile">
+                                <div class="bento-tile-title-compact">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                                    1. Información General & Insignias de la Card
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <div class="form-group" style="grid-column: 1 / -1;">
+                                        <label class="form-label" for="prop-title">Título Comercial de la Propiedad *</label>
+                                        <input type="text" class="form-input" id="prop-title" placeholder="Ej. Casa Residencial de Lujo Tumbaco Zen" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-type">Tipo de Inmueble *</label>
+                                        <select class="form-select" id="prop-type" required>
+                                            <option value="casa">Casa Residencial</option>
+                                            <option value="departamento">Departamento de Lujo</option>
+                                            <option value="proyecto">Proyecto Preventa / En Construcción</option>
+                                            <option value="lote">Terreno / Lote</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-price">Precio de Venta ($ USD) *</label>
+                                        <input type="number" class="form-input" id="prop-price" placeholder="Ej. 189000" required>
+                                    </div>
+
+                                    <!-- INSIGNIA NAVY (STATUS) -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-status">Insignia Azul (Estado del Inmueble) *</label>
+                                        <select class="form-select" id="prop-status" required>
+                                            <option value="Venta Inmediata">Venta Inmediata</option>
+                                            <option value="En Construcción">En Construcción</option>
+                                            <option value="Entrega Inmediata">Entrega Inmediata</option>
+                                            <option value="Preventa 2026">Preventa 2026</option>
+                                            <option value="Disponible">Disponible</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- INSIGNIA DORADA (URGENCY / HIGHLIGHT) -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-urgency">Insignia Dorada (Destacado / Urgencia) *</label>
+                                        <select class="form-select" id="prop-urgency" required>
+                                            <option value="Última Unidad">Última Unidad</option>
+                                            <option value="Superprecio">Superprecio</option>
+                                            <option value="Alta Plusvalía">Alta Plusvalía</option>
+                                            <option value="Oportunidad BIESS">Oportunidad BIESS</option>
+                                            <option value="Propiedad de Autor">Propiedad de Autor</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-city">Ciudad / Cantón *</label>
+                                        <input type="text" class="form-input" id="prop-city" placeholder="Ej. Quito, Tumbaco, Sangolquí" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-location">Dirección Completa / Sector *</label>
+                                        <input type="text" class="form-input" id="prop-location" placeholder="Ej. Sector Interoceánica, Tumbaco, Ecuador" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BLOQUE 2: UBICACIÓN EXACTA EN EL MAPA INTERACTIVO (LEAFLET) -->
+                            <div class="bento-compact-tile">
+                                <div class="bento-tile-title-compact">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                    2. Ubicación Exacta en el Mapa (Haz clic o arrastra el marcador)
+                                </div>
+                                <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.75rem;">
+                                    Haz clic en cualquier punto del mapa para ubicar el marcador exacto de tu propiedad:
+                                </p>
+
+                                <!-- Leaflet Map Container -->
+                                <div id="admin-map-picker" style="height: 290px; border-radius: var(--radius-lg); border: 1px solid var(--color-border-light); z-index: 1;"></div>
+
+                                <!-- Hidden Lat/Lng Inputs -->
+                                <div style="display: flex; gap: 1rem; margin-top: 0.75rem;">
+                                    <div class="form-group" style="margin-bottom: 0; flex: 1;">
+                                        <label class="form-label">Latitud</label>
+                                        <input type="text" class="form-input" id="prop-lat" value="-0.1730" readonly style="background: var(--color-bg-subtle);">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0; flex: 1;">
+                                        <label class="form-label">Longitud</label>
+                                        <input type="text" class="form-input" id="prop-lng" value="-78.4775" readonly style="background: var(--color-bg-subtle);">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BLOQUE 3: FOTOGRAFÍAS & SUBIDA DRAG & DROP WITH AUTOMATIC WATERMARK & WEBP OPTIMIZATION -->
+                            <div class="bento-compact-tile">
+                                <div class="bento-tile-title-compact">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                                    3. Imágenes HD con Marca de Agua Automática & Compresión WebP
+                                </div>
+
+                                <!-- Hero Image Dropzone -->
+                                <div class="form-group" style="margin-bottom: 1.25rem;">
+                                    <label class="form-label">Imagen Principal (Hero Image) *</label>
+                                    <div id="hero-dropzone" class="drag-drop-zone">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 38px; height: 38px; stroke: var(--color-accent-gold); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                        <p style="font-size: 0.9rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem;">Arrastra aquí la Imagen Principal</p>
+                                        <span style="font-size: 0.78rem; color: var(--color-text-muted);">Se aplicará automáticamente la Marca de Agua "TENDENCIA INMOBILIARIA" y optimización WebP</span>
+                                        <input type="file" id="hero-file-input" accept="image/*" style="display: none;">
+                                    </div>
+                                    <div id="hero-preview-container" style="display: none; margin-top: 0.75rem; position: relative; max-width: 280px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border-light);">
+                                        <img id="hero-preview-img" src="" alt="Hero Preview" style="width: 100%; height: 160px; object-fit: cover;">
+                                        <button type="button" id="btn-remove-hero" style="position: absolute; top: 0.4rem; right: 0.4rem; background: rgba(15,23,42,0.85); color: #fff; border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer;">✕</button>
+                                    </div>
+                                    <input type="hidden" id="prop-hero-img" value="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85">
+                                </div>
+
+                                <!-- Gallery Images Dropzone -->
+                                <div class="form-group">
+                                    <label class="form-label">Galería de Fotos Secundarias</label>
+                                    <div id="gallery-dropzone" class="drag-drop-zone">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 38px; height: 38px; stroke: var(--color-primary); margin-bottom: 0.5rem;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 1-2.828 0L6 21"/></svg>
+                                        <p style="font-size: 0.9rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem;">Arrastra múltiples fotos para la Galería HD</p>
+                                        <span style="font-size: 0.78rem; color: var(--color-text-muted);">Todas las imágenes recibirán Marca de Agua VIP y compresión WebP en tiempo real</span>
+                                        <input type="file" id="gallery-file-input" accept="image/*" multiple style="display: none;">
+                                    </div>
+                                    <div id="gallery-preview-grid" style="display: flex; gap: 0.65rem; flex-wrap: wrap; margin-top: 0.75rem;">
+                                        <!-- Dynamic Gallery Thumbnails -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BLOQUE 4: MÉTRICAS BENTO -->
+                            <div class="bento-compact-tile">
+                                <div class="bento-tile-title-compact">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3z"/></svg>
+                                    4. Métricas Técnicas (Menú Bento & Especificaciones)
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-area">Superficie m² *</label>
+                                        <input type="number" class="form-input" id="prop-area" placeholder="145" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-bedrooms">Dormitorios</label>
+                                        <input type="number" class="form-input" id="prop-bedrooms" placeholder="3">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-bathrooms">Baños Completo</label>
+                                        <input type="number" step="0.5" class="form-input" id="prop-bathrooms" placeholder="3">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-parking">Parqueaderos *</label>
+                                        <input type="number" class="form-input" id="prop-parking" placeholder="2" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BLOQUE 5: RESUMEN EJECUTIVO -->
+                            <div class="bento-compact-tile">
+                                <div class="bento-tile-title-compact">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 1-2 2v16a2 2 0 0 1 2 2h12a2 2 0 0 1-2-2V8z"/></svg>
+                                    5. Resumen Ejecutivo & Descripción
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="prop-description">Descripción Detallada *</label>
+                                    <textarea class="form-input" id="prop-description" rows="4" placeholder="Describe los acabados, distribución, iluminación, privacidad y entorno..." required></textarea>
+                                </div>
+                            </div>
+
+                            <!-- BLOQUE 6: MODELOS / TIPOLOGÍAS DISPONIBLES -->
+                            <div class="bento-compact-tile">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <div class="bento-tile-title-compact" style="margin-bottom: 0;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/></svg>
+                                        6. Modelos / Unidades Disponibles
+                                    </div>
+                                    <button type="button" class="btn btn-outline btn-sm" id="btn-add-typology">
+                                        + Añadir Modelo
+                                    </button>
+                                </div>
+                                
+                                <div id="typologies-container" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                    <!-- Dynamic Typology Rows -->
+                                </div>
+                            </div>
+
+                            <!-- BLOQUE 7: PROYECCIÓN HIPOTECARIA -->
+                            <div class="bento-compact-tile">
+                                <div class="bento-tile-title-compact">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                    7. Proyección Hipotecaria BIESS / Banco
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-downpayment">Entrada Estimada (20%)</label>
+                                        <input type="text" class="form-input" id="prop-downpayment" placeholder="Ej. $37.800 (20%)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-monthly">Cuota Mensual Estimada</label>
+                                        <input type="text" class="form-input" id="prop-monthly" placeholder="Ej. $1.100 / mes">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="prop-biess">¿Elegible Crédito BIESS?</label>
+                                        <select class="form-select" id="prop-biess">
+                                            <option value="true">Sí (100% Califica BIESS)</option>
+                                            <option value="false">No (Financiamiento Directo)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BLOQUE 8: AMENIDADES -->
+                            <div class="bento-compact-tile">
+                                <div class="bento-tile-title-compact">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                    8. Equipamiento & Amenidades Incluidas
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.65rem;" id="amenities-checkboxes">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                                        <input type="checkbox" value="shield|Seguridad Privada 24/7" checked> Seguridad Privada 24/7
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                                        <input type="checkbox" value="trees|Jardines Zen & Iluminación" checked> Jardines Zen & Iluminación
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                                        <input type="checkbox" value="car|Parqueadero Subterráneo" checked> Parqueadero Subterráneo
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                                        <input type="checkbox" value="sun|Pool House & Jacuzzi"> Pool House & Jacuzzi
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                                        <input type="checkbox" value="building|Ascensor de Alta Velocidad"> Ascensor de Alta Velocidad
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                                        <input type="checkbox" value="flame|Área BBQ & Pergola"> Área BBQ & Pérgola
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- SUBMIT BUTTON -->
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-full" style="font-size: 1.1rem; padding: 1.1rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                    <span>Publicar Propiedad en Catálogo (Guardar en SQLite)</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- RIGHT COLUMN: LIVE CARD PREVIEW -->
+                    <div>
+                        <div style="position: sticky; top: 90px; display: flex; flex-direction: column; gap: 1rem;">
+                            <h3 style="font-size: 1.1rem; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; stroke: var(--color-accent-gold);"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                Vista Previa de la Card (Index)
+                            </h3>
+
+                            <!-- LIVE PREVIEW CONTAINER WITH VECTOR SVG ICONS -->
+                            <div id="live-card-preview">
+                                <div class="property-card" style="box-shadow: var(--shadow-luxury);">
+                                    <div class="property-card-img-wrap">
+                                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85" alt="Vista Previa" class="property-card-img">
+                                        <div class="property-card-badges">
+                                            <span class="badge badge-navy">Venta Inmediata</span>
+                                            <span class="badge badge-gold">Última Unidad</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-card-body">
+                                        <div class="property-card-price-row">
+                                            <span class="property-card-price" style="color: var(--color-primary);">$189.000</span>
+                                            <span class="property-card-type" style="text-transform: uppercase;">Casa</span>
+                                        </div>
+                                        <h3 class="property-card-title">Residencia Ejemplo de Lujo</h3>
+                                        <div class="property-card-location">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px; height:15px; stroke:var(--color-primary);"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                            <span>Sector Interoceánica, Tumbaco, Ecuador</span>
+                                        </div>
+
+                                        <div class="property-card-specs">
+                                            <div class="spec-item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px; height:14px; stroke:var(--color-primary);"><path d="M21 3H3v18h18V3z"/></svg>
+                                                <span>145 m²</span>
+                                            </div>
+                                            <div class="spec-item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px; height:14px; stroke:var(--color-primary);"><path d="M2 4v16"/><path d="M2 8h20v12H2z"/><path d="M6 12v4"/><path d="M10 12v4"/></svg>
+                                                <span>3 Hab.</span>
+                                            </div>
+                                            <div class="spec-item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px; height:14px; stroke:var(--color-primary);"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-2.12 0 1.5 1.5 0 0 0 0 2.12L6.88 8"/><path d="M4 14h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z"/></svg>
+                                                <span>3 Baños</span>
+                                            </div>
+                                            <div class="spec-item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px; height:14px; stroke:var(--color-primary);"><rect width="16" height="12" x="4" y="6" rx="2"/><path d="M7 18v2"/><path d="M17 18v2"/></svg>
+                                                <span>2 Park</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="property-card-footer">
+                                            <button type="button" class="btn btn-primary btn-md" style="flex: 1.2;">
+                                                <span>Saber Más</span>
+                                            </button>
+                                            <button type="button" class="btn btn-whatsapp btn-md" style="flex: 1;">
+                                                <span>Contactar</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="navbar-brand" style="margin-bottom: 1.25rem; display: inline-flex;">
+                        <div class="brand-icon-wrap">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </div>
+                        <div class="brand-text">
+                            <span class="brand-title" style="color: #fff;">TENDENCIA</span>
+                            <span class="brand-subtitle">INMOBILIARIA</span>
+                        </div>
+                    </a>
+                    <p style="color: var(--color-text-muted-light); font-size: 0.88rem; max-width: 320px;">Transformamos la forma de comprar y vender propiedades en Ecuador con seriedad, transparencia y excelencia visual.</p>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: var(--color-text-light); margin-bottom: 1.25rem;">Navegación</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--color-text-muted-light);">
+                        <li><a href="index.html#inicio" style="color: inherit; text-decoration: none;">Inicio</a></li>
+                        <li><a href="index.html#catalogo" style="color: inherit; text-decoration: none;">Propiedades</a></li>
+                        <li><a href="subir-propiedad.html" style="color: inherit; text-decoration: none;">Publicar Propiedad</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: var(--color-text-light); margin-bottom: 1.25rem;">Propiedades</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--color-text-muted-light);">
+                        <li>Casas Residenciales</li>
+                        <li>Departamentos de Lujo</li>
+                        <li>Terrenos Urbanizados</li>
+                        <li>Proyectos de Inversión</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: var(--color-text-light); margin-bottom: 1.25rem;">Legal & Garantía</h4>
+                    <p style="font-size: 0.85rem; color: var(--color-text-muted-light); line-height: 1.5;">Todas nuestras propiedades cuentan con verificación jurídica, escrituración individual y asesoría de financiamiento.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Demo Inmobiliaria. Todos los derechos reservados.</span>
+                <span>Quito · Conocoto · Tumbaco · Sangolquí</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Entry Point Module Bundle -->
+    <script type="module" src="/js/admin.js"></script>
+
+</body>
+</html>

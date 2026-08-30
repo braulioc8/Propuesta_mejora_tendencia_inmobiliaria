@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Catálogo Completo de Propiedades | Demo Inmobiliaria</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Leaflet OpenStreetMap Interactive Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Alpine.js Declarative Engine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Normalized Design System & Stylesheets -->
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/design-tokens.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+    <!-- ALPINE.JS REACTIVE ANIMATED NAVBAR -->
+    <header class="navbar" x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 25)" :class="{ 'scrolled': scrolled }">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="brand-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">DEMO</span>
+                    <span class="brand-subtitle">INMOBILIARIA</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="propiedades.html" class="nav-link active">Catálogo Completo</a></li>
+                    <li><a href="index.html#galeria" class="nav-link">Galería HD</a></li>
+                    <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+                    <li><a href="subir-propiedad.html" class="nav-link" style="color: var(--color-accent-gold); font-weight: 700;">+ Panel Admin</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="https://wa.me/593984585530?text=Hola,%20deseo%20asesoría%20inmobiliaria" target="_blank" class="btn btn-emerald btn-whatsapp btn-md nav-desktop-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>Asesoría VIP</span>
+                </a>
+
+                <button class="mobile-toggle" @click="open = !open" aria-label="Abrir Menú">
+                    <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-drawer" x-show="open" x-cloak @click.outside="open = false">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html" class="nav-link" @click="open = false">Inicio</a></li>
+                <li><a href="propiedades.html" class="nav-link" @click="open = false">Catálogo Completo</a></li>
+                <li><a href="index.html#galeria" class="nav-link" @click="open = false">Galería HD</a></li>
+                <li><a href="index.html#contacto" class="nav-link" @click="open = false">Contacto</a></li>
+                <li><a href="subir-propiedad.html" class="nav-link" style="color: var(--color-accent-gold); font-weight: 700;" @click="open = false">+ Panel Admin</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HEADER BANNER -->
+    <section class="section" style="padding-top: 110px; padding-bottom: 1.5rem; background: var(--color-bg-subtle); border-bottom: 1px solid var(--color-border-light);">
+        <div class="container">
+            <span class="section-subtitle" style="justify-content: flex-start;">Buscador Avanzado de Inmuebles</span>
+            <h1 class="section-title" style="text-align: left; margin-bottom: 0.25rem;">Catálogo Completo de Propiedades</h1>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem;">Explora casas, departamentos y terrenos con filtros por presupuesto, habitaciones y área geográfica.</p>
+        </div>
+    </section>
+
+    <!-- MAIN CATALOG STORE LAYOUT (FILTERS LEFT STICKY, PROPERTIES RIGHT) -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            
+            <div class="catalog-store-layout">
+                
+                <!-- LEFT COLUMN: STICKY FILTERS SIDEBAR (MOBILE: STICKY PILLS BAR AT TOP) -->
+                <aside class="catalog-sidebar-filters">
+                    <div class="filter-sidebar-card">
+                        
+                        <!-- Sidebar Header with Compact Map Drawing Button -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--color-border-light); padding-bottom: 0.75rem;">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-primary); margin: 0; display: flex; align-items: center; gap: 0.4rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; stroke: var(--color-accent-gold);"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                                Filtros
+                            </h3>
+
+                            <!-- COMPACT MAP BUTTON ("Dibujar" + Map Icon) -->
+                            <button type="button" id="btn-open-map-modal" class="btn btn-outline btn-sm" style="padding: 0.35rem 0.65rem; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 0.35rem;" title="Dibujar Zona en Mapa">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; stroke: var(--color-accent-gold);"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Dibujar</span>
+                            </button>
+                        </div>
+
+                        <!-- Filter Controls Container (Desktop: Vertical Stack, Mobile: Horizontal LinkedIn-Style Scrollable Pills Bar) -->
+                        <div class="filter-controls-wrap">
+                            <!-- Mobile Compact Map Pill Button -->
+                            <button type="button" id="btn-open-map-modal-mobile" class="btn btn-outline btn-sm mobile-map-pill-btn" style="border-radius: 9999px; padding: 0.4rem 0.85rem; font-size: 0.78rem; display: none; align-items: center; gap: 0.35rem; flex-shrink: 0;" title="Dibujar Zona en Mapa">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; stroke: var(--color-accent-gold);"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Dibujar Mapa</span>
+                            </button>
+
+                            <div>
+                                <label class="form-label" style="font-size: 0.8rem;">Buscar por Sector / Palabra Clave</label>
+                                <input type="text" id="filter-keyword" class="form-input" placeholder="Sector / Ubicación..." style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                            </div>
+
+                            <div>
+                                <label class="form-label" style="font-size: 0.8rem;">Tipo de Propiedad</label>
+                                <select id="filter-type" class="form-select" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                                    <option value="all">Tipo: Todos</option>
+                                    <option value="casa">Casa Residencial</option>
+                                    <option value="departamento">Departamento de Lujo</option>
+                                    <option value="proyecto">Proyecto Preventa</option>
+                                    <option value="lote">Terreno / Lote</option>
+                                </select>
+                            </div>
+
+                            <!-- Min / Max Price Sub-grid -->
+                            <div class="filter-price-wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <div>
+                                    <label class="form-label" style="font-size: 0.75rem;">Mínimo ($)</label>
+                                    <input type="number" id="filter-min-price" class="form-input" placeholder="Mín ($)" step="5000" style="padding: 0.45rem 0.6rem; font-size: 0.82rem;">
+                                </div>
+                                <div>
+                                    <label class="form-label" style="font-size: 0.75rem;">Máximo ($)</label>
+                                    <input type="number" id="filter-max-price" class="form-input" placeholder="Máx ($)" step="5000" style="padding: 0.45rem 0.6rem; font-size: 0.82rem;">
+                                </div>
+                            </div>
+
+                            <!-- Bedrooms / Bathrooms Sub-grid -->
+                            <div class="filter-specs-wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <div>
+                                    <label class="form-label" style="font-size: 0.75rem;">Habitaciones</label>
+                                    <select id="filter-bedrooms" class="form-select" style="padding: 0.45rem 0.6rem; font-size: 0.82rem;">
+                                        <option value="all">Habitaciones: Todas</option>
+                                        <option value="1">1+ Hab.</option>
+                                        <option value="2">2+ Hab.</option>
+                                        <option value="3">3+ Hab.</option>
+                                        <option value="4">4+ Hab.</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label" style="font-size: 0.75rem;">Baños</label>
+                                    <select id="filter-bathrooms" class="form-select" style="padding: 0.45rem 0.6rem; font-size: 0.82rem;">
+                                        <option value="all">Baños: Todos</option>
+                                        <option value="1">1+ Baños</option>
+                                        <option value="2">2+ Baños</option>
+                                        <option value="3">3+ Baños</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="form-label" style="font-size: 0.8rem;">Ordenar Resultados</label>
+                                <select id="filter-sort-by" class="form-select" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                                    <option value="default">Ordenar Por</option>
+                                    <option value="price-asc">Precio: Menor a Mayor</option>
+                                    <option value="price-desc">Precio: Mayor a Menor</option>
+                                    <option value="views-desc">Más Populares (Más Vistas)</option>
+                                </select>
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button type="button" id="btn-toggle-favorites" class="btn btn-outline btn-md" style="flex: 1; font-size: 0.82rem;" title="Ver Mis Favoritos">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#E11D48" stroke="#E11D48" stroke-width="2" style="width: 14px; height: 14px;"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                                    <span>Favoritos (<strong id="fav-count-num">0</strong>)</span>
+                                </button>
+                                <button type="button" id="btn-reset-filters" class="btn btn-outline btn-md reset-pill-btn" style="color: #e11d48; border-color: rgba(225,29,72,0.3); font-size: 0.85rem;" title="Limpiar Filtros">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                    <span>Limpiar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- RIGHT COLUMN: PROPERTY CARDS GRID (72% WIDTH) -->
+                <div class="catalog-main-content">
+                    <!-- Results Counter & Active Polygon Badge Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem; background: var(--color-surface-white); padding: 0.85rem 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border-light);">
+                        <span id="results-count-text" style="font-weight: 700; color: var(--color-primary); font-size: 1.02rem;">Cargando propiedades...</span>
+                        
+                        <span id="drawn-zone-badge" class="badge badge-gold" style="display: none; align-items: center; gap: 0.4rem; padding: 0.4rem 0.75rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            <span id="drawn-zone-text">Zona Dibujada Activa</span>
+                            <button type="button" id="btn-clear-drawn-badge" style="background: none; border: none; color: inherit; cursor: pointer; font-size: 0.85rem; margin-left: 0.25rem;">✕</button>
+                        </span>
+                    </div>
+
+                    <!-- Dynamic Property Cards Grid -->
+                    <div class="property-grid-store" id="all-properties-grid">
+                        <!-- Populated dynamically by js/properties-list.js -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- COMPACT PLUSVALÍA STYLE MAP POLYGON DRAWING MODAL -->
+    <div id="map-draw-modal" class="modal-backdrop">
+        <div class="modal-container" style="max-width: 820px; width: 92vw; padding: 1.25rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-luxury);">
+            
+            <!-- Modal Header (Descriptive Text Only) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border-light);">
+                <p style="font-size: 0.92rem; font-weight: 600; color: var(--color-text-main); margin: 0;">
+                    Dibujar puntos sobre el mapa con toques para delimitar tu zona de búsqueda
+                </p>
+                <button type="button" id="btn-close-map-modal" class="btn btn-outline btn-sm" style="padding: 0.25rem 0.55rem; border-radius: 50%; font-size: 1rem; color: var(--color-text-muted);" title="Cerrar Modal">✕</button>
+            </div>
+
+            <!-- Relative Container with Floating Controls Over the Map -->
+            <div style="position: relative; width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border-light);">
+                
+                <!-- Leaflet Compact Map Canvas (320px Height) -->
+                <div id="search-polygon-map" style="height: 320px; min-height: 320px; width: 100%; border-radius: var(--radius-lg); z-index: 1;"></div>
+
+                <!-- Floating Overlay Icons (Top Right over Map) -->
+                <div style="position: absolute; top: 12px; right: 12px; z-index: 1000; display: flex; gap: 0.5rem;">
+                    <!-- Trash Can Icon (Reiniciar / Limpiar Puntos) -->
+                    <button type="button" id="btn-clear-drawn-area" style="background: #FFFFFF; color: #e11d48; border: 1.5px solid rgba(225,29,72,0.3); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 14px rgba(15,23,42,0.18); transition: transform 0.2s;" title="Limpiar Puntos">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 19px; height: 19px;"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+
+                    <!-- Checkmark ("Vistito") Icon (Aplicar Filtro al Catálogo) -->
+                    <button type="button" id="btn-apply-modal-filter" style="background: var(--color-emerald); color: #FFFFFF; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 14px rgba(5,150,105,0.35); transition: transform 0.2s;" title="Aplicar Filtro al Catálogo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Real-time Status Footer -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.65rem; padding-top: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div id="draw-status-text" style="font-size: 0.82rem; color: var(--color-text-muted);">
+                    Haz toques en el mapa para marcar los puntos.
+                </div>
+                <span id="drawn-count-badge" class="badge badge-gold" style="display: none; font-size: 0.76rem;">0 propiedades encontradas en la zona</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="navbar-brand" style="margin-bottom: 1.25rem; display: inline-flex;">
+                        <div class="brand-icon-wrap">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </div>
+                        <div class="brand-text">
+                            <span class="brand-title" style="color: #fff;">DEMO</span>
+                            <span class="brand-subtitle">INMOBILIARIA</span>
+                        </div>
+                    </a>
+                    <p style="color: var(--color-text-muted-light); font-size: 0.88rem; max-width: 320px;">Transformamos la forma de comprar y vender propiedades en Ecuador con seriedad, transparencia y excelencia visual.</p>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: var(--color-text-light); margin-bottom: 1.25rem;">Navegación</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--color-text-muted-light);">
+                        <li><a href="index.html#inicio" style="color: inherit; text-decoration: none;">Inicio</a></li>
+                        <li><a href="propiedades.html" style="color: inherit; text-decoration: none;">Propiedades</a></li>
+                        <li><a href="index.html#nosotros" style="color: inherit; text-decoration: none;">Nosotros</a></li>
+                        <li><a href="index.html#faq" style="color: inherit; text-decoration: none;">Preguntas Frecuentes (FAQ)</a></li>
+                        <li><a href="subir-propiedad.html" style="color: inherit; text-decoration: none;">Publicar Propiedad</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: var(--color-text-light); margin-bottom: 1.25rem;">Propiedades</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--color-text-muted-light);">
+                        <li>Casas Residenciales</li>
+                        <li>Departamentos de Lujo</li>
+                        <li>Terrenos Urbanizados</li>
+                        <li>Proyectos de Inversión</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: var(--color-text-light); margin-bottom: 1.25rem;">Legal & Garantía</h4>
+                    <p style="font-size: 0.85rem; color: var(--color-text-muted-light); line-height: 1.5;">Todas nuestras propiedades cuentan con verificación jurídica, escrituración individual y asesoría de financiamiento.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Demo Inmobiliaria. Todos los derechos reservados.</span>
+                <span>Quito · Conocoto · Tumbaco · Sangolquí</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dedicated Catalog Module -->
+    <script type="module" src="/js/properties-list.js"></script>
+
+</body>
+</html>

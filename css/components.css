@@ -1,0 +1,1172 @@
+/* ==========================================
+   NORMALIZED COMPONENT LIBRARY - PLUSVALIA BENCHMARK
+   Executive Navy, Soft Emerald WhatsApp, 100% Strict Mobile Containment & Lightbox Modal
+   ========================================== */
+
+/* Global SVG Safety & Scaling Rules */
+svg {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0 !important;
+    box-sizing: border-box;
+}
+
+.bento-svg-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+/* Leaflet Map Controls & Popups Protection */
+.leaflet-container svg {
+    width: auto !important;
+    height: auto !important;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: var(--radius-md) !important;
+    padding: 0.25rem !important;
+    box-shadow: var(--shadow-card) !important;
+}
+
+.leaflet-popup-close-button {
+    font-size: 16px !important;
+    padding: 4px !important;
+}
+
+/* ------------------------------------------
+   1. BUTTON SYSTEM
+   ------------------------------------------ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+    user-select: none;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.btn svg {
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    stroke-width: 2;
+    flex-shrink: 0 !important;
+}
+
+.btn-sm {
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+}
+
+.btn-md {
+    padding: 0.65rem 1.35rem;
+    font-size: 0.88rem;
+    border-radius: var(--radius-md);
+}
+
+.btn-lg {
+    padding: 0.85rem 1.75rem;
+    font-size: 0.96rem;
+    border-radius: var(--radius-md);
+}
+
+/* Primary Matte Executive Button */
+.btn-primary {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    border: 1px solid var(--color-primary);
+    box-shadow: var(--shadow-subtle);
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    transform: translateY(-1px);
+}
+
+/* Matte Slate Button */
+.btn-gold {
+    background: var(--color-accent-gold);
+    color: #FFFFFF;
+    border: 1px solid var(--color-accent-gold);
+    font-weight: 700;
+}
+
+.btn-gold:hover {
+    background: var(--color-accent-gold-hover);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--color-bg-dark);
+    color: var(--color-text-light);
+    border: 1px solid var(--color-bg-dark);
+}
+
+.btn-secondary:hover {
+    background: var(--color-surface-dark);
+    color: var(--color-text-light);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border-light);
+}
+
+.btn-outline:hover {
+    background: var(--color-bg-subtle);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+/* Soft Executive Emerald WhatsApp Button */
+.btn-whatsapp {
+    background: var(--color-emerald);
+    color: #FFFFFF;
+    border-color: var(--color-emerald);
+}
+
+.btn-whatsapp:hover {
+    background: var(--color-emerald-hover);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* ------------------------------------------
+   2. FORM CONTROLS & DRAG AND DROP DROPZONE
+   ------------------------------------------ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.15rem;
+    width: 100%;
+}
+
+.form-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--color-text-body);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.form-control,
+.form-select,
+.form-input {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.65rem 1.1rem;
+    background: var(--color-surface-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition-fast);
+    box-sizing: border-box;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
+}
+
+.drag-drop-zone {
+    border: 2px dashed var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-subtle);
+    padding: 1.75rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.drag-drop-zone:hover,
+.drag-drop-zone.dragover {
+    border-color: var(--color-primary);
+    background: rgba(15, 23, 42, 0.04);
+}
+
+/* ------------------------------------------
+   3. BADGES & TAGS
+   ------------------------------------------ */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+}
+
+.badge svg {
+    width: 13px !important;
+    height: 13px !important;
+    stroke-width: 2;
+}
+
+.badge-gold {
+    background: #475569;
+    color: #FFFFFF;
+    border: none;
+}
+
+.badge-navy {
+    background: #0F172A;
+    color: #FFFFFF;
+    border: none;
+}
+
+.badge-outline {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    color: #0F172A;
+}
+
+/* ------------------------------------------
+   4. PROPERTY CARDS (COMPACT MATTE DESIGN)
+   ------------------------------------------ */
+.property-card {
+    background: var(--color-surface-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease-out;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: var(--shadow-card);
+    width: 100%;
+    min-width: 0 !important;
+    box-sizing: border-box;
+}
+
+.property-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-luxury);
+}
+
+.property-card-img-wrap {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    overflow: hidden;
+    background: #0F172A;
+}
+
+.property-card-badges {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    z-index: 2;
+}
+
+.btn-card-heart {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-card-heart:hover {
+    transform: scale(1.12);
+    background: rgba(15, 23, 42, 0.85);
+}
+
+.btn-card-heart.active {
+    background: #FFFFFF;
+    border-color: #E11D48;
+}
+
+.btn-card-heart.active svg {
+    fill: #E11D48;
+    stroke: #E11D48;
+}
+
+.watermark-overlay {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.6rem;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #FFFFFF;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.55rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.watermark-overlay svg {
+    width: 12px;
+    height: 12px;
+    stroke: var(--color-accent-gold);
+}
+
+.property-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.property-card:hover .property-card-img {
+    transform: scale(1.08);
+    filter: brightness(1.04);
+}
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.property-card:hover .property-card-img {
+    transform: scale(1.04);
+}
+
+.property-card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.property-card-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.35rem;
+}
+
+.property-card-price {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin: 0;
+}
+
+.property-card-type {
+    font-size: 0.72rem;
+    color: var(--color-accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.property-card-title {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin: 0 0 0.45rem 0;
+    line-height: 1.3;
+}
+
+.property-card-location {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.84rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.85rem;
+}
+
+.property-card-location svg {
+    width: 15px !important;
+    height: 15px !important;
+    stroke: var(--color-primary);
+    flex-shrink: 0 !important;
+}
+
+/* Specs Bar */
+.property-card-specs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 0.75rem;
+    background: var(--color-bg-subtle);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+    margin-bottom: 1.15rem;
+    gap: 0.5rem 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.spec-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--color-text-body);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.spec-item svg {
+    width: 15px !important;
+    height: 15px !important;
+    stroke: var(--color-primary);
+    flex-shrink: 0 !important;
+}
+
+.property-card-footer {
+    margin-top: auto;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.btn-contact-card {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-contact-card .contact-btn-text {
+    display: inline;
+}
+
+/* TABLET & MOBILE RESPONSIVE HIDE TEXT (<= 1024px) */
+@media (max-width: 1024px) {
+    .btn-contact-card .contact-btn-text {
+        display: none !important;
+    }
+
+    .btn-contact-card {
+        width: 44px !important;
+        min-width: 44px !important;
+        height: 44px !important;
+        padding: 0 !important;
+        flex: 0 0 44px !important;
+        flex-shrink: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: var(--radius-md) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .property-card {
+        border-radius: var(--radius-lg);
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+        overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
+    .property-card-img-wrap {
+        aspect-ratio: 16 / 9 !important;
+        max-height: 190px !important;
+        height: 190px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .property-card-body {
+        padding: 0.95rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .property-card-price-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .property-card-price {
+        font-size: 1.25rem !important;
+    }
+
+    .property-card-title {
+        font-size: 0.98rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.35rem !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .property-card-location {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.75rem !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .property-card-specs {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.4rem 0.5rem !important;
+        padding: 0.5rem 0.6rem !important;
+        margin-bottom: 0.85rem !important;
+        background: var(--color-bg-subtle) !important;
+        border-radius: var(--radius-md) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .spec-item {
+        justify-content: flex-start !important;
+        font-size: 0.75rem !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    .property-card-footer {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.45rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .property-card-footer {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0.6rem !important;
+    }
+}
+
+/* ------------------------------------------
+   5. DEDICATED PROPERTY PAGE (STRICT RESPONSIVE)
+   ------------------------------------------ */
+.bento-compact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.bento-compact-tile {
+    background: var(--color-surface-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem;
+    box-shadow: var(--shadow-subtle);
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+@media (max-width: 640px) {
+    .bento-compact-tile {
+        padding: 1.1rem 0.9rem;
+    }
+}
+
+.bento-tile-title-compact {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.15rem;
+    flex-wrap: wrap;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+@media (max-width: 480px) {
+    .bento-tile-title-compact {
+        font-size: 0.78rem;
+        letter-spacing: 0.4px;
+        gap: 0.35rem;
+    }
+}
+
+.bento-tile-title-compact svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: var(--color-accent-gold);
+    flex-shrink: 0 !important;
+}
+
+/* Bento Resumen Horizontal Strip */
+.bento-hero-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.85rem;
+    padding: 1.15rem !important;
+    background: var(--color-surface-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+@media (max-width: 1024px) {
+    .bento-hero-strip {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.65rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .bento-hero-strip {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.45rem;
+        padding: 0.65rem !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .bento-hero-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.45rem;
+    }
+}
+
+.bento-hero-metric-card {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.75rem;
+    background: var(--color-bg-subtle);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+    box-sizing: border-box;
+    min-width: 0 !important;
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .bento-hero-metric-card {
+        padding: 0.5rem 0.55rem;
+        gap: 0.4rem;
+    }
+}
+
+.bento-hero-metric-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background: transparent !important;
+    border: none !important;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0 !important;
+}
+
+@media (max-width: 600px) {
+    .bento-hero-metric-icon {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+    }
+}
+
+.bento-hero-metric-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: var(--color-primary);
+}
+
+@media (max-width: 600px) {
+    .bento-hero-metric-icon svg {
+        width: 16px !important;
+        height: 16px !important;
+    }
+}
+
+.bento-hero-metric-val {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .bento-hero-metric-val {
+        font-size: 0.88rem;
+    }
+}
+
+.bento-hero-metric-lbl {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 600px) {
+    .bento-hero-metric-lbl {
+        display: none !important;
+    }
+}
+
+/* ------------------------------------------
+   6. DESKTOP VS MOBILE VERTICAL 2-COLUMN TYPOLOGIES TABLE
+   ------------------------------------------ */
+.typologies-table-desktop {
+    display: block;
+    width: 100%;
+}
+
+.typologies-cards-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 0.85rem;
+    width: 100%;
+}
+
+@media (max-width: 640px) {
+    .typologies-table-desktop {
+        display: none !important;
+    }
+    .typologies-cards-mobile {
+        display: flex !important;
+    }
+}
+
+.typology-mobile-card {
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.typology-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.65rem;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.typology-mobile-name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+
+.typology-mobile-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.typology-mobile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px dashed rgba(15, 23, 42, 0.08);
+}
+
+.typology-mobile-row:last-child {
+    border-bottom: none;
+}
+
+.typology-mobile-lbl {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.typology-mobile-val {
+    font-size: 0.88rem;
+    color: var(--color-text-main);
+    font-weight: 700;
+}
+
+/* Plusvalía Unit Typologies Table Wrapper */
+.table-responsive-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+    box-sizing: border-box !important;
+    margin: 0 !important;
+}
+
+.typologies-table {
+    width: 100% !important;
+    border-collapse: collapse;
+    min-width: 480px;
+}
+
+.typologies-table th {
+    background: var(--color-bg-subtle);
+    padding: 0.65rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border-light);
+    white-space: nowrap;
+}
+
+.typologies-table td {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.82rem;
+    color: var(--color-text-body);
+    border-bottom: 1px solid var(--color-border-light);
+    white-space: nowrap;
+}
+
+.typologies-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Plusvalía Spec Matrix */
+.plusvalia-spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .plusvalia-spec-grid {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+    }
+}
+
+.plusvalia-spec-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    background: var(--color-bg-subtle);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+}
+
+.plusvalia-spec-item-icon-box {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background: transparent !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    flex-shrink: 0 !important;
+}
+
+.plusvalia-spec-item-icon-box svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: var(--color-primary);
+}
+
+.plusvalia-spec-item > div {
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Plusvalía Amenity Cards Matrix */
+.bento-amenity-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .bento-amenity-matrix {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+.bento-amenity-card {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 0.85rem;
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    box-sizing: border-box;
+    min-width: 0 !important;
+    overflow: hidden;
+}
+
+.bento-amenity-card svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: var(--color-primary);
+    flex-shrink: 0 !important;
+}
+
+.bento-amenity-card span {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text-body);
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* Leaflet Map Strict Container Containment */
+#property-leaflet-map {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 280px !important;
+    height: 280px !important;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+    z-index: 1;
+    box-sizing: border-box !important;
+    display: block !important;
+    background: #E2E8F0;
+    overflow: hidden !important;
+}
+
+#search-polygon-map {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 320px !important;
+    height: 320px !important;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+    z-index: 1;
+    box-sizing: border-box !important;
+    display: block !important;
+    background: #E2E8F0;
+    overflow: hidden !important;
+}
+
+/* Plusvalía Sticky Agency Card */
+.sticky-agency-card {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 96px !important;
+    z-index: 90 !important;
+    background: var(--color-surface-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+}
+
+@media (max-width: 992px) {
+    .sticky-agency-card {
+        position: relative !important;
+        top: 0 !important;
+    }
+}
+
+/* ------------------------------------------
+   7. LIGHTBOX MODAL DIALOG SYSTEM (HIDDEN BY DEFAULT)
+   ------------------------------------------ */
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 999999;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.modal-backdrop.active {
+    display: flex !important;
+}
+
+.modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    background: var(--color-surface-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-luxury);
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+    .modal-container {
+        padding: 1rem;
+        border-radius: var(--radius-lg);
+    }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-light);
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+}
+
+.modal-close-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* TABLET OPTIMIZATIONS FOR COMPONENTS (768px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .property-card-img-wrap {
+        height: 200px !important;
+    }
+
+    .property-card-body {
+        padding: 1.1rem !important;
+    }
+
+    .property-card-title {
+        font-size: 1.05rem !important;
+    }
+
+    .property-card-price {
+        font-size: 1.25rem !important;
+    }
+
+    .bento-amenity-matrix {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
