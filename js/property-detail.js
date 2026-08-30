@@ -433,15 +433,28 @@ function renderPropertyDetailPage(property) {
             <div class="bento-compact-tile">
                 <div class="bento-tile-title-compact">${BENTO_ICONS.mapPin} Ubicación Exacta y Radar de Entorno</div>
                 
-                <!-- Radar POI Chips Bar -->
+                <!-- Radar POI Chips Bar (100% SVG Vector Icons) -->
                 <div class="poi-chips-bar" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; width: 100%; margin-bottom: 0.2rem;">
-                        📍 Servicios y Puntos de Interés Cercanos:
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.35rem; width: 100%; margin-bottom: 0.2rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; stroke: var(--color-accent-gold);"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                        Servicios y Puntos de Interés Cercanos:
                     </span>
-                    <span class="badge badge-navy" style="font-size: 0.76rem;">🏫 Unidades Educativas (3 min)</span>
-                    <span class="badge badge-gold" style="font-size: 0.76rem;">🛒 Supermercados & Malls (5 min)</span>
-                    <span class="badge badge-navy" style="font-size: 0.76rem;">🌳 Parques Recreativos (4 min)</span>
-                    <span class="badge badge-gold" style="font-size: 0.76rem;">🏥 Centros de Salud (8 min)</span>
+                    <span class="badge badge-navy" style="font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 12px; height: 12px;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        Unidades Educativas (3 min)
+                    </span>
+                    <span class="badge badge-gold" style="font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 12px; height: 12px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                        Supermercados & Malls (5 min)
+                    </span>
+                    <span class="badge badge-navy" style="font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 12px; height: 12px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Parques Recreativos (4 min)
+                    </span>
+                    <span class="badge badge-gold" style="font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 12px; height: 12px;"><path d="M12 6v12M6 12h12"/></svg>
+                        Centros de Salud (8 min)
+                    </span>
                 </div>
 
                 <div id="property-detail-map" style="height: 360px; border-radius: var(--radius-lg); border: 1px solid var(--color-border-light); z-index: 1;"></div>
@@ -467,15 +480,15 @@ function renderPropertyDetailPage(property) {
                     // POI Radar Markers
                     const c = property.coordinates;
                     const poiList = [
-                        { name: "Colegio / Unidad Educativa", type: "🏫", coords: [c[0] + 0.0025, c[1] + 0.003] },
-                        { name: "Supermercado & Centro Comercial", type: "🛒", coords: [c[0] - 0.003, c[1] + 0.0025] },
-                        { name: "Parque Recreativo", type: "🌳", coords: [c[0] + 0.003, c[1] - 0.002] },
-                        { name: "Hospital / Clínica de Salud", type: "🏥", coords: [c[0] - 0.0025, c[1] - 0.0035] }
+                        { name: "Colegio / Unidad Educativa", category: "[Educación]", coords: [c[0] + 0.0025, c[1] + 0.003] },
+                        { name: "Supermercado & Centro Comercial", category: "[Comercio]", coords: [c[0] - 0.003, c[1] + 0.0025] },
+                        { name: "Parque Recreativo", category: "[Parque]", coords: [c[0] + 0.003, c[1] - 0.002] },
+                        { name: "Hospital / Clínica de Salud", category: "[Salud]", coords: [c[0] - 0.0025, c[1] - 0.0035] }
                     ];
 
                     poiList.forEach(poi => {
                         L.marker(poi.coords).addTo(map)
-                            .bindPopup(`<b>${poi.type} ${poi.name}</b><br>Punto de interés cercano`);
+                            .bindPopup(`<b>${poi.category} ${poi.name}</b><br>Punto de interés cercano`);
                     });
                 }
             }, 100);
